@@ -1,6 +1,13 @@
 import { createIndices } from "./createIndices";
 
-export const createVertices = (size: number, segments: number) => {
+export type GeometryType = {
+    indices : Array<number>
+    vertices : Array<number>
+    normals: Array<number>
+    colors: Array<number>
+}
+
+export const createVertices = (size: number, segments: number) : GeometryType  => {
 
     let indices: Array<number> = [];
     
@@ -28,5 +35,6 @@ export const createVertices = (size: number, segments: number) => {
         indices.push(...indices = createIndices(i, segments));
     }
 
-    return vertices;
+    let geometry : GeometryType = {"vertices": vertices, "indices": indices, "normals": normals, "colors": colors}; 
+    return geometry;
 }
