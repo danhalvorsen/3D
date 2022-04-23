@@ -11,4 +11,5 @@ module.exports = merge(common, {
         },
         hot: true,
     },
+    watch: true,
 })
