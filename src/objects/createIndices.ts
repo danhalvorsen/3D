@@ -5,8 +5,8 @@
  * @param segments 
  * @returns 
  */
-export const createIndices = (i: number, segments: number): Array<number> => {
-    let indices: Array<number> = [];
+export function createIndices(i: number, segments: number, indices : Array<number>): Array<number> {
+    // let indices: Array<number> = new Array<number>();
     // generate indices (data for element array buffer)
     for (let j = 0; j <= segments; j++) {
         for (let j = 0; j < segments; j++) {
@@ -17,10 +17,9 @@ export const createIndices = (i: number, segments: number): Array<number> => {
             const d = (i + 1) * (segments + 1) + (j + 1);
 
             // generate two faces (triangles) per iteration
-
             indices.push(a, b, d); // face one
             indices.push(b, c, d); // face two
         }
-        return indices;
     }
-};
+    return indices;
+}

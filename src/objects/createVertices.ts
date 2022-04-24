@@ -10,7 +10,6 @@ export type GeometryType = {
 export const createVertices = (size: number, segments: number) : GeometryType  => {
 
     let indices: Array<number> = [];
-    
     let vertices: Array<number> = [];
     let normals: Array<number> = [];
     let colors: Array<number> = [];
@@ -18,7 +17,7 @@ export const createVertices = (size: number, segments: number) : GeometryType  =
     const halfSize = size / 2;
     const segmentSize = size / segments;
 
-    for (let i = 0; i < segments; i++) {
+    for (let i = 0; i <= segments; i++) {    
         const y = (i * segmentSize) - halfSize;
 
         for (let j = 0; j <= segments; j++) {
@@ -30,11 +29,29 @@ export const createVertices = (size: number, segments: number) : GeometryType  =
             const g = (y / size) + 0.5;
 
             colors.push(r, g, 1);
-        }
+        }}
 
-        indices.push(...indices = createIndices(i, segments));
+
+        for ( let i = 0; i < segments; i ++ ) {
+
+            for ( let j = 0; j < segments; j ++ ) {
+
+                const a = i * ( segments + 1 ) + ( j + 1 );
+                const b = i * ( segments + 1 ) + j;
+                const c = ( i + 1 ) * ( segments + 1 ) + j;
+                const d = ( i + 1 ) * ( segments + 1 ) + ( j + 1 );
+
+                // generate two faces (triangles) per iteration
+
+                indices.push( a, b, d ); // face one
+                indices.push( b, c, d ); // face two
+
+            }
+
+        }
+        //createIndices(i, segments, indices);
+        let geometry : GeometryType = {"vertices": vertices, "indices": indices, "normals": normals, "colors": colors}; 
+        return geometry;
+    
     }
 
-    let geometry : GeometryType = {"vertices": vertices, "indices": indices, "normals": normals, "colors": colors}; 
-    return geometry;
-}
