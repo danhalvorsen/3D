@@ -11,4 +11,9 @@ export class Material {
         color: 0xff0000,
         wireframe: true,
     });
+
+    public meshPhongmaterial : THREE.MeshPhongMaterial = new THREE.MeshPhongMaterial({
+        side: THREE.DoubleSide,
+        vertexColors: true
+    });
 }

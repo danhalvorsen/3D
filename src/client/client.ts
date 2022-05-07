@@ -1,3 +1,4 @@
+import { BufferIndexedMeshThreeJS } from './../objects/BufferIndexedMeshThreeJS';
 import { Mesh } from './../objects/mesh';
 import * as THREE from 'three'
 import { PlaneGeometry } from 'three'
@@ -9,20 +10,24 @@ const scene = new THREE.Scene()
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000)
 camera.position.z = 10
 
-const renderer = new THREE.WebGLRenderer()
+const renderer = new THREE.WebGLRenderer({ antialias: true })
 renderer.setSize(window.innerWidth, window.innerHeight)
 document.body.appendChild(renderer.domElement)
 
 const controls = new OrbitControls(camera, renderer.domElement)
 
-const geometry = new THREE.BoxGeometry()
+//const geometry = new THREE.BoxGeometry()
 
 
-new Mesh(scene, new THREE.Vector3(100, 150, 50), new Material().greenWireFrame);
-new Mesh(scene, new THREE.Vector3(-100, -150, -50), new Material().redWireFrame);
+// new Mesh(scene, new THREE.Vector3(100, 150, 50), new Material().greenWireFrame);
+// new Mesh(scene, new THREE.Vector3(-100, -150, -50), new Material().redWireFrame);
 
 // const cube = new THREE.Mesh(geometry, new Material().greenWireFrame);
 
+new BufferIndexedMeshThreeJS(scene, 20, 30);
+
+// const light = new THREE.HemisphereLight();
+// scene.add(light);
 
 window.addEventListener('resize', onWindowResize, false)
 function onWindowResize() {
