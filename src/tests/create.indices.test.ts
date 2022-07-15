@@ -1,4 +1,6 @@
+import jest from '@jest/globals'
 import { createVertices, GeometryType } from './../objects/createVertices';
+
 describe('create indices', () => {
     it('should have created indices for given vertices', () => {
         const geometryType = CreateBasicMesh();

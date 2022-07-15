@@ -14,20 +14,21 @@ const renderer = new THREE.WebGLRenderer({ antialias: true })
 renderer.setSize(window.innerWidth, window.innerHeight)
 document.body.appendChild(renderer.domElement)
 
+
 const controls = new OrbitControls(camera, renderer.domElement)
 
-//const geometry = new THREE.BoxGeometry()
+var mesh = new BufferIndexedMeshThreeJS(scene, 20, 30)
+
+var slider = document.getElementById("slider");
+if(slider !== null)
+    slider.addEventListener('input', mesh.setSegments)
 
 
-// new Mesh(scene, new THREE.Vector3(100, 150, 50), new Material().greenWireFrame);
-// new Mesh(scene, new THREE.Vector3(-100, -150, -50), new Material().redWireFrame);
-
-// const cube = new THREE.Mesh(geometry, new Material().greenWireFrame);
-
-new BufferIndexedMeshThreeJS(scene, 20, 30);
 
 // const light = new THREE.HemisphereLight();
 // scene.add(light);
+
+
 
 window.addEventListener('resize', onWindowResize, false)
 function onWindowResize() {
@@ -51,4 +52,5 @@ function animate() {
 function render() {
     renderer.render(scene, camera)
 }
+
 animate()
