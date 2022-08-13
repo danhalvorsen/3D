@@ -1,0 +1,12 @@
+
+{
+  "compilerOptions": {
+      "moduleResolution": "node",
+      "strict": true,
+      "outDir": "./dist",
+  },
+  "output": {
+    "clean": true,
+  },
+  "include": ["**/*.ts"]
+}
