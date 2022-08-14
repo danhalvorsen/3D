@@ -1,63 +1,82 @@
+import * as THREE from 'three'
 import { NumberKeyframeTrack, Vector3 } from 'three'
-import THREE = require('three')
 import { materials } from './materials'
+import { midpoint } from './midpoint'
 
-export type Pos = { pos: Vector3 }
+export type Pos = { vec: Vector3 }
 export type PosPair = { start: Pos; end: Pos }
 export type RadiusPair = { startRadius: number; endRadius: number }
-export type BranchData = { pos: PosPair; radiusPair: RadiusPair; depth: number; angle: number, length: number }
+export type BranchData = {
+  pos: PosPair
+  radiusPair: RadiusPair
+  depth: number
+  angle: number
+  length: number
+}
 
 export const branch = (branchData: BranchData): THREE.Mesh => {
-    const length = branchData.pos.start.pos.distanceTo(branchData.pos.end.pos)
-    const geometry = new THREE.CylinderGeometry(
-        branchData.radiusPair.startRadius,
-        branchData.radiusPair.endRadius,
-        length,
-        32
-    )
-    const newBranchMesh = new THREE.Mesh(geometry, materials().basicMaterial)
+  const length = branchData.pos.start.vec.distanceTo(branchData.pos.end.vec)
 
-    return newBranchMesh
+  const geometry = new THREE.CylinderGeometry(
+    branchData.radiusPair.startRadius,
+    branchData.radiusPair.endRadius,
+    length,
+    32,
+  )
+
+  return new THREE.Mesh(geometry, materials().basicMaterial)
 }
 
 export const threeGenerator = (scene: THREE.Scene, branchData: BranchData) => {
-    const meshs: Array<THREE.Mesh> = []
-    const func = (branchData: BranchData, mother?: THREE.Mesh) => {
-        if (branchData.depth < 4) return
-        const mesh = branch(branchData)
-        const axesHelper = new THREE.AxesHelper(15)
-        mesh.add(axesHelper)
-        //scene.add( axesHelper );
+  const func = (branchData: BranchData, mother?: THREE.Mesh) => {
+    if (branchData.depth < 4) return
 
-        console.log(
-            'adding a branch to the scene:' +
-                mesh.position.x +
-                ',' +
-                mesh.position.y +
-                ',' +
-                mesh.position.z
-        )
-        if (mother === undefined) {
-            scene.add(mesh)
-        } else {
-            const pos = mother.position.clone()
-            mesh.position.set(pos.x, branchData.pos.start.pos.y, pos.z)
-            // const quaternion = new THREE.Quaternion()
-            // quaternion.setFromAxisAngle(new THREE.Vector3(0, 0, 1), Math.PI / 4)
-            // mesh.applyQuaternion(quaternion)
+    const mesh = branch(branchData)
+    scene.add(mesh)
 
-            scene.add(mesh)
-        }
+    mesh.add(new THREE.AxesHelper(15))
 
-        console.log(branchData)
-        const candidate = branchData;
-        
-        candidate.length = branchData.length / 2
-        candidate.pos.start.pos.y += branchData.length
-        candidate.depth -= 1.0
+    const pivot = new THREE.Group()
+    pivot.position.set(0.0, 0.0, 0)
+    pivot.add(mesh)
 
-        func(candidate, mesh)
+    //scene.add( axesHelper );
+
+    if (mother === undefined) {
+      scene.add(mesh)
+      console.log('adding root')
+    } else {
+      const pos = new THREE.Vector3(
+        branchData.pos.start.vec.x,
+        branchData.pos.start.vec.y,
+        branchData.pos.start.vec.z,
+      )
+      mesh.position.set(pos.x, pos.y, pos.z)
+      scene.add(mesh)
+      console.log(
+        `adding a new branch to the tree. pos: ${(pos.x, pos.y, pos.z)}`,
+      )
     }
 
-    func(branchData)
+    const newData = branchData
+    const mp = (newData.pos.start.vec = midpoint(
+      newData.pos.start.vec,
+      newData.pos.end.vec,
+    ))
+    newData.pos.end.vec = new THREE.Vector3(3, 3, 3)
+    newData.length = branchData.length / 2
+    newData.angle = branchData.angle
+    newData.depth -= 1.0
+    rotate(Math.PI / 4)
+
+    func(newData, mesh)
+
+    function rotate(angle: number) {
+      const quaternion = new THREE.Quaternion()
+      quaternion.setFromAxisAngle(new THREE.Vector3(0, 0, 1), angle)
+      mesh.applyQuaternion(quaternion)
+    }
+  }
+
+  func(branchData, undefined)
 }
