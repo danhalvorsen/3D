@@ -1,9 +1,12 @@
 
 {
   "compilerOptions": {
+      "target": "ES2020", // which level of JS support to target
+      "module": "CommonJS", // which system for the program AMD, UMD, System, CommonJS
       "moduleResolution": "node",
       "strict": true,
       "outDir": "./dist",
+      "noImplicitAny": true, // if true, any undeclared variables will be treated as errors
   },
   "output": {
     "clean": true,
