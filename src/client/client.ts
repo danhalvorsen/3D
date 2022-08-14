@@ -28,7 +28,8 @@ const data: BranchData = {
         endRadius: .5
     },
     depth: 5,
-    angle: Math.PI / 2
+    angle: Math.PI / 2,
+    length: 10
     };
  
 //scene.add(branch(data))

@@ -5,14 +5,14 @@ import { materials } from './materials'
 export type Pos = { pos: Vector3 }
 export type PosPair = { start: Pos; end: Pos }
 export type RadiusPair = { startRadius: number; endRadius: number }
-export type BranchData = { pos: PosPair; radiusPair: RadiusPair; depth: number; angle: number }
+export type BranchData = { pos: PosPair; radiusPair: RadiusPair; depth: number; angle: number, length: number }
 
 export const branch = (branchData: BranchData): THREE.Mesh => {
     const length = branchData.pos.start.pos.distanceTo(branchData.pos.end.pos)
     const geometry = new THREE.CylinderGeometry(
         branchData.radiusPair.startRadius,
         branchData.radiusPair.endRadius,
-        2,
+        length,
         32
     )
     const newBranchMesh = new THREE.Mesh(geometry, materials().basicMaterial)
@@ -23,7 +23,7 @@ export const branch = (branchData: BranchData): THREE.Mesh => {
 export const threeGenerator = (scene: THREE.Scene, branchData: BranchData) => {
     const meshs: Array<THREE.Mesh> = []
     const func = (branchData: BranchData, mother?: THREE.Mesh) => {
-        if (branchData.depth < 3) return
+        if (branchData.depth < 4) return
         const mesh = branch(branchData)
         const axesHelper = new THREE.AxesHelper(15)
         mesh.add(axesHelper)
@@ -51,7 +51,9 @@ export const threeGenerator = (scene: THREE.Scene, branchData: BranchData) => {
 
         console.log(branchData)
         const candidate = branchData;
-        candidate.pos.start.pos.y += 2.3
+        
+        candidate.length = branchData.length / 2
+        candidate.pos.start.pos.y += branchData.length
         candidate.depth -= 1.0
 
         func(candidate, mesh)
