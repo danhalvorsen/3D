@@ -21,7 +21,7 @@ export const branch = (branchData: BranchData): THREE.Mesh => {
     branchData.radiusPair.startRadius,
     branchData.radiusPair.endRadius,
     length,
-    32,
+    8,
   )
 
   return new THREE.Mesh(geometry, materials().basicMaterial)
@@ -36,15 +36,19 @@ export const threeGenerator = (scene: THREE.Scene, branchData: BranchData) => {
 
     mesh.add(new THREE.AxesHelper(15))
 
-    const pivot = new THREE.Group()
-    pivot.position.set(0.0, 0.0, 0)
-    pivot.add(mesh)
-
-    //scene.add( axesHelper );
-
     if (mother === undefined) {
-      scene.add(mesh)
-      console.log('adding root')
+      // var box = new THREE.Box3().setFromObject(mesh);
+      // box.getCenter(mesh.position); // this re-sets the mesh position
+      // mesh.position.multiplyScalar(-1);
+
+      const pivot = new THREE.Group()
+      pivot.position.set(0, 0, 0)
+      scene.add(pivot)
+      pivot.add(mesh)
+
+      const pos = mesh.position
+
+      console.log(`adding root@[${pos.x},${pos.y},${pos.z}]`)
     } else {
       const pos = new THREE.Vector3(
         branchData.pos.start.vec.x,
@@ -52,9 +56,10 @@ export const threeGenerator = (scene: THREE.Scene, branchData: BranchData) => {
         branchData.pos.start.vec.z,
       )
       mesh.position.set(pos.x, pos.y, pos.z)
-      scene.add(mesh)
+      rotate(-Math.PI / 4)
+
       console.log(
-        `adding a new branch to the tree. pos: ${(pos.x, pos.y, pos.z)}`,
+        `adding a new branch to the tree. pos:[${pos.x},${pos.y},${pos.z}]`,
       )
     }
 
@@ -63,11 +68,10 @@ export const threeGenerator = (scene: THREE.Scene, branchData: BranchData) => {
       newData.pos.start.vec,
       newData.pos.end.vec,
     ))
-    newData.pos.end.vec = new THREE.Vector3(3, 3, 3)
+    // newData.pos.end.vec = new THREE.Vector3(3, 3, 3)
     newData.length = branchData.length / 2
     newData.angle = branchData.angle
     newData.depth -= 1.0
-    rotate(Math.PI / 4)
 
     func(newData, mesh)
 

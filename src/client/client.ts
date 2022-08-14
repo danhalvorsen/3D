@@ -16,10 +16,10 @@ const renderer = new THREE.WebGLRenderer()
 renderer.setSize(window.innerWidth, window.innerHeight)
 document.body.appendChild(renderer.domElement)
 
-const geometry = new THREE.BoxGeometry()
+// const geometry = new THREE.BoxGeometry()
 
-const cube = new THREE.Mesh(geometry, materials().basicMaterial)
-scene.add(cube)
+// const cube = new THREE.Mesh(geometry, materials().basicMaterial)
+// scene.add(cube)
 
 const data: BranchData = {
   pos: {
@@ -55,8 +55,8 @@ function onWindowResize() {
 function animate() {
   requestAnimationFrame(animate)
 
-  cube.rotation.x += 0.01
-  cube.rotation.y += 0.01
+  // cube.rotation.x += 0.01
+  // cube.rotation.y += 0.01
 
   render()
 }
