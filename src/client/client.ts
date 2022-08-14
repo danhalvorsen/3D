@@ -1,27 +1,45 @@
+import { BranchData, threeGenerator } from './../drawThree/branch'
 import * as THREE from 'three'
-
+import { materials } from '../drawThree/materials'
+import { branch } from '../drawThree/branch'
 const scene = new THREE.Scene()
 
-const camera = new THREE.PerspectiveCamera(
-    75,
-    window.innerWidth / window.innerHeight,
-    0.1,
-    1000
-)
-camera.position.z = 2
+const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000)
+camera.position.z = 20
 
 const renderer = new THREE.WebGLRenderer()
 renderer.setSize(window.innerWidth, window.innerHeight)
 document.body.appendChild(renderer.domElement)
 
 const geometry = new THREE.BoxGeometry()
-const material = new THREE.MeshBasicMaterial({
-    color: 0x00ff00,
-    wireframe: true,
-})
 
-const cube = new THREE.Mesh(geometry, material)
+const Cylgeometry = new THREE.CylinderGeometry(5, 5, 2, 32)
+
+const cube = new THREE.Mesh(geometry, materials().basicMaterial)
 scene.add(cube)
+
+const data: BranchData = {
+    pos: {
+        start:  { pos: new THREE.Vector3(0, 0, 0) },
+        end:    { pos: new THREE.Vector3(0, 0, 1) }
+    },
+    radiusPair: {
+        startRadius: .5,
+        endRadius: .5
+    },
+    depth: 5,
+    angle: Math.PI / 2
+    };
+ 
+//scene.add(branch(data))
+
+
+const gridHelper = new THREE.GridHelper(4, 4);
+scene.add(gridHelper);
+
+const generator = threeGenerator(scene, data);
+
+console.log("done creating the three");
 
 window.addEventListener('resize', onWindowResize, false)
 function onWindowResize() {
