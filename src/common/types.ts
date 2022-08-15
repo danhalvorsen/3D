@@ -1,4 +1,5 @@
 import { Vector3 } from 'three'
+import THREE = require('three')
 
 export type Pos = { vec: Vector3 }
 export type PosPair = { start: Pos; end: Pos }

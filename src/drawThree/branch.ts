@@ -1,8 +1,8 @@
 import * as THREE from 'three'
 import { NumberKeyframeTrack, Vector3 } from 'three'
 import { PosPair as ToFrom, RadiusPair } from '../common/types'
-import { materials } from './materials'
 import { midpoint } from './midpoint'
+import { materials } from '../common/materials'
 
 export type BranchData = {
   pos: ToFrom
@@ -57,7 +57,6 @@ export const threeGenerator = (scene: THREE.Scene, branchData: BranchData) => {
         branchData.pos.start.vec.z,
       )
       meshGroup.position.set(pos.x, pos.y, pos.z)
-      rotate(-Math.PI / 4)
 
       console.log(
         `adding a new branch to the tree. pos:[${pos.x},${pos.y},${pos.z}] length:${branchData.length} `,
@@ -75,12 +74,6 @@ export const threeGenerator = (scene: THREE.Scene, branchData: BranchData) => {
     newData.depth -= 1.0
 
     func(newData, meshGroup)
-
-    function rotate(angle: number) {
-      const quaternion = new THREE.Quaternion()
-      quaternion.setFromAxisAngle(new THREE.Vector3(0, 0, 1), angle)
-      meshGroup.applyQuaternion(quaternion)
-    }
   }
 
   func(branchData, undefined)

@@ -1,7 +1,6 @@
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import { BranchData, threeGenerator } from './../drawThree/branch'
-import { materials } from '../drawThree/materials'
 import { branch } from '../drawThree/branch'
 import { helloSceenGraph } from '../simple/hello-sceen-graph'
 
@@ -21,11 +20,6 @@ camera.position.z = 20
 
 renderer.setSize(window.innerWidth, window.innerHeight)
 document.body.appendChild(renderer.domElement)
-
-// const geometry = new THREE.BoxGeometry()
-
-// const cube = new THREE.Mesh(geometry, materials().basicMaterial)
-// scene.add(cube)
 
 const data: BranchData = {
   pos: {
