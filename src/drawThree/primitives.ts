@@ -1,4 +1,5 @@
 import THREE = require('three')
+import { materials } from './materials'
 
 export interface cylinderConfig {
   radiusTop?: number
@@ -26,4 +27,27 @@ export const primitives = (config: cylinderConfig) => {
   return {
     cylinder: cylinder,
   }
+}
+
+export const createCube = () => {
+  const geometry = new THREE.BoxGeometry(1, 1, 1)
+  const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 })
+  const cube = new THREE.Mesh(geometry, material)
+  return cube
+}
+
+export const createCylinder = (): THREE.Mesh => {
+  const startRadius = 5
+  const endRadius = 5
+  const length = 1
+  const cylinderSegments = 36
+
+  const geometry = new THREE.CylinderGeometry(
+    startRadius,
+    endRadius,
+    length,
+    cylinderSegments,
+  )
+  const mesh1 = new THREE.Mesh(geometry, materials().basicMaterial)
+  return mesh1
 }

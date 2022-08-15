@@ -1,7 +1,10 @@
-import { BranchData, threeGenerator } from './../drawThree/branch'
 import * as THREE from 'three'
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
+import { BranchData, threeGenerator } from './../drawThree/branch'
 import { materials } from '../drawThree/materials'
 import { branch } from '../drawThree/branch'
+import { helloSceenGraph } from '../simple/hello-sceen-graph'
+
 const scene = new THREE.Scene()
 
 const camera = new THREE.PerspectiveCamera(
@@ -10,9 +13,12 @@ const camera = new THREE.PerspectiveCamera(
   0.1,
   1000,
 )
-camera.position.z = 20
 
 const renderer = new THREE.WebGLRenderer()
+const controls = new OrbitControls(camera, renderer.domElement)
+
+camera.position.z = 20
+
 renderer.setSize(window.innerWidth, window.innerHeight)
 document.body.appendChild(renderer.domElement)
 
@@ -35,14 +41,13 @@ const data: BranchData = {
   length: 10,
 }
 
-//scene.add(branch(data))
-
 const gridHelper = new THREE.GridHelper(4, 4)
 scene.add(gridHelper)
 
-const generator = threeGenerator(scene, data)
+//const generator = threeGenerator(scene, data)
+helloSceenGraph(scene)
 
-console.log('done creating the three')
+console.log('done creating the wanted option')
 
 window.addEventListener('resize', onWindowResize, false)
 function onWindowResize() {

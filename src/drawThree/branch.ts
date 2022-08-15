@@ -1,13 +1,11 @@
 import * as THREE from 'three'
 import { NumberKeyframeTrack, Vector3 } from 'three'
+import { PosPair as ToFrom, RadiusPair } from '../common/types'
 import { materials } from './materials'
 import { midpoint } from './midpoint'
 
-export type Pos = { vec: Vector3 }
-export type PosPair = { start: Pos; end: Pos }
-export type RadiusPair = { startRadius: number; endRadius: number }
 export type BranchData = {
-  pos: PosPair
+  pos: ToFrom
   radiusPair: RadiusPair
   depth: number
   angle: number
