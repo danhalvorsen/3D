@@ -7,7 +7,7 @@ import {
   createCylinder,
 } from '../common/primitives'
 
-export const helloSceenGraph = (scene: THREE.Scene) => {
+export const helloSceneGraph = (scene: THREE.Scene) => {
   const rBranch = [
     createCube(new Vector3(0, 4.0, 0)),
     createCube(new Vector3(1, 1.5, 0)),
@@ -42,13 +42,13 @@ export const helloSceenGraph = (scene: THREE.Scene) => {
   scene.add(cylGroup1)
   scene.add(cylGroup2)
 
-  rBranch.forEach((i) => {
-    rotateZ(-Math.PI / 8, i)
-  })
+  // rBranch.forEach((i) => {
+  //   rotateZ(-Math.PI / 8, i)
+  // })
 
-  lBranch.forEach((i) => {
-    rotateZ(Math.PI / 8, i)
-  })
+  // lBranch.forEach((i) => {
+  //   rotateZ(Math.PI / 8, i)
+  // })
 
   console.log('returning to main function')
 }
