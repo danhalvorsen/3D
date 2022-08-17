@@ -46,9 +46,9 @@ export const createCube = (pos: Vector3, length?: number): Group => {
   return pivot
 }
 
-export const createCylinder = (pos: Vector3, length?: number): THREE.Group => {
-  const startRadius = 1
-  const endRadius = 1
+export const createCylinder = (pos: Vector3, length?: number, radius?:number ): THREE.Group => {
+  const startRadius = 2 || radius
+  const endRadius = 2 || radius
   const cylLength = length || 1
   const cylinderSegments = 36
 

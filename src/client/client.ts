@@ -3,6 +3,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import { BranchData, threeGenerator } from './../drawThree/branch'
 import { branch } from '../drawThree/branch'
 import { helloSceneGraph } from '../simple/hello-sceen-graph'
+import { helloSimpleThree } from '../simple/hekkom-simple.tree'
 
 const scene = new THREE.Scene()
 
@@ -39,7 +40,8 @@ const gridHelper = new THREE.GridHelper(4, 4)
 scene.add(gridHelper)
 
 //const generator = threeGenerator(scene, data)
-helloSceneGraph(scene)
+//helloSceneGraph(scene)
+helloSimpleThree(scene)
 
 console.log('done creating the wanted option')
 
