@@ -21,7 +21,7 @@ export const helloSceneGraph = (scene: THREE.Scene) => {
     createCube(new Vector3(-1, 1.5, 0)),
     createCube(new Vector3(-2, 2.5, 0)),
     createCube(new Vector3(-3, 3.5, 0)),
-    createCube(new Vector3(-4, 4.5, 0)),
+    createCube(new Vector3(-4, 4.5, 0), 3),
   ]
 
   const cylGroup1 = createCylinder(new Vector3(0, 0, 0), 2)
@@ -42,13 +42,13 @@ export const helloSceneGraph = (scene: THREE.Scene) => {
   scene.add(cylGroup1)
   scene.add(cylGroup2)
 
-  // rBranch.forEach((i) => {
-  //   rotateZ(-Math.PI / 8, i)
-  // })
+  rBranch.forEach((i) => {
+    rotateZ(-Math.PI / 8, i)
+  })
 
-  // lBranch.forEach((i) => {
-  //   rotateZ(Math.PI / 8, i)
-  // })
+  lBranch.forEach((i) => {
+    rotateZ(Math.PI / 8, i)
+  })
 
   console.log('returning to main function')
 }

@@ -32,7 +32,7 @@ export const primitives = (config: cylinderConfig) => {
 
 export const createCube = (pos: Vector3, length?: number): Group => {
   const cubeLength = length || 1
-  const geometry = new BoxGeometry(1, 1, 1)
+  const geometry = new BoxGeometry(1, cubeLength, 1)
   const material = new MeshBasicMaterial({ color: 0x00ff00 })
   const cube = new THREE.Mesh(geometry, material)
   cube.position.set(0, cubeLength / 2, 0) //Move the center of gravity
