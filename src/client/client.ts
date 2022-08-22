@@ -40,8 +40,8 @@ const gridHelper = new THREE.GridHelper(4, 4)
 scene.add(gridHelper)
 
 //const generator = threeGenerator(scene, data)
-//helloSceneGraph(scene)
-helloSimpleThree(scene)
+helloSceneGraph(scene)
+//helloSimpleThree(scene)
 
 console.log('done creating the wanted option')
 
